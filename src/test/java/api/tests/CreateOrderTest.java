@@ -32,12 +32,6 @@ public class CreateOrderTest extends BaseTest {
     @DisplayName("Create order with authorization - should be successful")
     @Description("Test creates an order with valid ingredients when authorized")
     public void createOrderWithAuth() {
-        // Пропускаем тест, если нет ингредиентов
-        if (validIngredientIds.isEmpty()) {
-            System.err.println("No ingredients available, skipping test");
-            return;
-        }
-
         List<String> ingredients = validIngredientIds.subList(0, Math.min(3, validIngredientIds.size()));
 
         Order order = new Order();
@@ -55,11 +49,6 @@ public class CreateOrderTest extends BaseTest {
     @DisplayName("Create order without authorization - should be successful")
     @Description("Test creates an order without authorization")
     public void createOrderWithoutAuth() {
-        if (validIngredientIds.isEmpty()) {
-            System.err.println("No ingredients available, skipping test");
-            return;
-        }
-
         List<String> ingredients = validIngredientIds.subList(0, Math.min(3, validIngredientIds.size()));
 
         Order order = new Order();
@@ -76,11 +65,6 @@ public class CreateOrderTest extends BaseTest {
     @DisplayName("Create order with valid ingredients - should be successful")
     @Description("Test creates an order with multiple valid ingredients")
     public void createOrderWithIngredients() {
-        if (validIngredientIds.isEmpty()) {
-            System.err.println("No ingredients available, skipping test");
-            return;
-        }
-
         List<String> ingredients = validIngredientIds.subList(0, Math.min(3, validIngredientIds.size()));
 
         Order order = new Order();
@@ -96,11 +80,6 @@ public class CreateOrderTest extends BaseTest {
     @DisplayName("Create order with single ingredient - should be successful")
     @Description("Test creates an order with just one ingredient")
     public void createOrderWithSingleIngredient() {
-        if (validIngredientIds.isEmpty()) {
-            System.err.println("No ingredients available, skipping test");
-            return;
-        }
-
         List<String> ingredients = Arrays.asList(validIngredientIds.get(0));
 
         Order order = new Order();
@@ -158,11 +137,6 @@ public class CreateOrderTest extends BaseTest {
     @DisplayName("Create order with mixed valid and invalid ingredients - should return error 500")
     @Description("Test tries to create order with some valid and some invalid ingredient IDs")
     public void createOrderWithMixedIngredients() {
-        if (validIngredientIds.isEmpty()) {
-            System.err.println("No ingredients available, skipping test");
-            return;
-        }
-
         List<String> mixedIngredients = Arrays.asList(
                 validIngredientIds.get(0),
                 "invalid_hash_123"

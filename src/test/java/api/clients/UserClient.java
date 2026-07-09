@@ -2,12 +2,14 @@ package api.clients;
 
 import api.config.ApiConfig;
 import api.models.User;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
 public class UserClient {
 
+    @Step("Register user: {user.email}")
     public Response register(User user) {
         return given()
                 .spec(ApiConfig.getRequestSpec())
@@ -16,6 +18,7 @@ public class UserClient {
                 .post(ApiConfig.REGISTER_ENDPOINT);
     }
 
+    @Step("Login user: {user.email}")
     public Response login(User user) {
         return given()
                 .spec(ApiConfig.getRequestSpec())
@@ -24,6 +27,7 @@ public class UserClient {
                 .post(ApiConfig.LOGIN_ENDPOINT);
     }
 
+    @Step("Update user with authorization")
     public Response updateUser(String accessToken, User user) {
         System.out.println("Updating user with token: " + accessToken);
         System.out.println("Update data: " + user.getEmail() + ", " + user.getName());
@@ -36,6 +40,7 @@ public class UserClient {
                 .patch(ApiConfig.USER_ENDPOINT);
     }
 
+    @Step("Update user without authorization")
     public Response updateUserWithoutAuth(User user) {
         return given()
                 .spec(ApiConfig.getRequestSpec())
@@ -44,6 +49,7 @@ public class UserClient {
                 .patch(ApiConfig.USER_ENDPOINT);
     }
 
+    @Step("Get user data")
     public Response getUser(String accessToken) {
         return given()
                 .spec(ApiConfig.getRequestSpec())
@@ -52,6 +58,7 @@ public class UserClient {
                 .get(ApiConfig.USER_ENDPOINT);
     }
 
+    @Step("Delete user")
     public Response deleteUser(String accessToken) {
         return given()
                 .spec(ApiConfig.getRequestSpec())
@@ -60,6 +67,7 @@ public class UserClient {
                 .delete(ApiConfig.USER_ENDPOINT);
     }
 
+    @Step("Logout user")
     public Response logout(String refreshToken) {
         return given()
                 .spec(ApiConfig.getRequestSpec())
@@ -68,6 +76,7 @@ public class UserClient {
                 .post(ApiConfig.LOGOUT_ENDPOINT);
     }
 
+    @Step("Get access token from response")
     public String getAccessTokenFromResponse(Response response) {
         String token = response.jsonPath().getString("accessToken");
         System.out.println("Raw token from response: " + token);
@@ -81,6 +90,7 @@ public class UserClient {
         return token;
     }
 
+    @Step("Get refresh token from response")
     public String getRefreshTokenFromResponse(Response response) {
         return response.jsonPath().getString("refreshToken");
     }
